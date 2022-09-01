@@ -1,0 +1,51 @@
+//// javascript를 통해 HTML의 내용을 가져오는 방법 ////
+
+const title = document.getElemetById("ID이름");
+// getElementByID,getElementsByClassName,getElementsByTagName 등등으로도 가능
+const title = document.querySelector("#hello h1"); // id가 hello인 h1 하나를 가져옴
+const title = document.querySelectorAll("#hello h1"); // id가 hello인 h1 전부를 가져옴
+
+title.innerText("바꾸고싶은이름"); // title을 바꿔줌
+title.style.color = "blue"; // title의 스타일 변화
+
+//// EventListeners ////
+function handleTitleClick() {
+  console.log("title was clicked");
+}
+
+function handleWindowResize() {
+  document.body.style.backgroundColor = "tomato";
+  // document.body || document.head || document.title 같은 중요한 요소만 가능
+  // document.div ( X ) 나머지는 querySelector 등 활용
+}
+
+function handleWindowCopy() {
+  alert("copier!");
+}
+
+function handleWindowOffline() {
+  alert("SOS or Wifi");
+}
+
+function handleWindowOnline() {
+  alert("Good");
+}
+
+// 그 외 다른 Event 참조는 JS event mdn 사이트 참고
+// title을 클릭할 시 handleTitleClick 실행
+title.addEventListener("click", handleTitleClick);
+title.onclick = handleTitleClick;
+title.onmouseenter = handleTitleClick;
+
+/*
+Window: 현재 스크립트가 작동중인 창을 나타내는 객체
+
+mouseenter : 마우스가 위로 올라갔을 때 발생하는 이벤트 
+mouseleave : 마우스가 떠났을 때 발생하는 이벤트 
+contextmenu : 사용자가 요소를 마우스 우 클릭해 메뉴를 열 때 발생하는 이벤트
+resize : 브라우저 창의 사이즈가 변할 때 발생하는 이벤트
+*/
+window.addEventListner("resize", handleWindowResize); // 창 사이즈가 바뀔 때 handleWindowResize 실행
+window.addEventListener("copy", handleWindowCopy); // 복사를 할 시 handleWindowCopy 실행
+window.addEventListener("offline", handleWindowOffline); // Wifi off할 시
+window.addEventListener("online", handleWindowOnline); // Wifi on할 시
