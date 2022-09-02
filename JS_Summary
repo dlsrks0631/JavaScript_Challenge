@@ -1,5 +1,4 @@
-//// javascript를 통해 HTML의 내용을 가져오는 방법 ////
-
+< javascript를 통해 HTML의 내용을 가져오는 방법 >
 const title = document.getElemetById("ID이름");
 // getElementByID,getElementsByClassName,getElementsByTagName 등등으로도 가능
 const title = document.querySelector("#hello h1"); // id가 hello인 h1 하나를 가져옴
@@ -8,7 +7,7 @@ const title = document.querySelectorAll("#hello h1"); // id가 hello인 h1 전�
 title.innerText("바꾸고싶은이름"); // title을 바꿔줌
 title.style.color = "blue"; // title의 스타일 변화
 
-//// EventListeners ////
+< EventListeners >
 function handleTitleClick() {
   console.log("title was clicked");
 }
@@ -31,21 +30,79 @@ function handleWindowOnline() {
   alert("Good");
 }
 
-// 그 외 다른 Event 참조는 JS event mdn 사이트 참고
-// title을 클릭할 시 handleTitleClick 실행
+--> 그 외 다른 Event 참조는 JS event mdn 사이트 참고
+--> title을 클릭할 시 handleTitleClick 실행
 title.addEventListener("click", handleTitleClick);
 title.onclick = handleTitleClick;
 title.onmouseenter = handleTitleClick;
 
-/*
 Window: 현재 스크립트가 작동중인 창을 나타내는 객체
-
 mouseenter : 마우스가 위로 올라갔을 때 발생하는 이벤트 
 mouseleave : 마우스가 떠났을 때 발생하는 이벤트 
 contextmenu : 사용자가 요소를 마우스 우 클릭해 메뉴를 열 때 발생하는 이벤트
 resize : 브라우저 창의 사이즈가 변할 때 발생하는 이벤트
-*/
+
 window.addEventListner("resize", handleWindowResize); // 창 사이즈가 바뀔 때 handleWindowResize 실행
 window.addEventListener("copy", handleWindowCopy); // 복사를 할 시 handleWindowCopy 실행
 window.addEventListener("offline", handleWindowOffline); // Wifi off할 시
 window.addEventListener("online", handleWindowOnline); // Wifi on할 시
+
+< Conditionals - if / else >
+(ex)
+const age = prompt("How old are you?") --> string -> 대소비교 불가
+--> prompt: 사용자에게 질문 창이 뜨게함 --> CSS 적용 X
+console.log(parseInt(age)) --> parseInt --> String을 Int로 바꿈
+isNaN(인수) --> number 인지 알려주는 것 boolean(True/False) 반환
+
+if(condition) {
+  condition === true
+} else if (condition){
+  condition === false
+} else {
+  condition === false
+}
+
+< Searching For Elements >
+1. getElementsByClassName("hello"); 
+--> array 반환 class이름이 hello인 것 모두 반환
+--> 많은 element를 한번에 가지고 와야하는 경우 사용
+2. querySelector(".hello h1");
+--> hello 클래스 안에 있는 h1 첫 번째만 가져옴
+3. querySelectorAll(".hello h1");
+--> hello 클래스 안에 있는 h1 전부 가져옴
+
+< CSS in Javascript >
+(ex)
+--> 방법 1
+function handleTitleClick() {
+  const currentColor = h1.style.color; --> 현재 h1의 색상을 저장해줌
+  let newColor;
+  if(currentColor === "blue") {
+    newColor = "tomato"; --> setter
+  } else {
+    newColor = "blue";
+  }
+  h1.style.color = newColor;
+}
+
+--> 방법 2
+(css)
+h1 {
+  color: cornflowerblue;
+  transition: color .5s ease-in-out;
+}
+.active {
+  color: tomato
+}
+(js)
+function handleTitleClick() {
+  if (h1.className === "active") {
+    h1.className = "";
+  } else {
+    h1.className = "active";
+  }
+}
+
+h1.addEventListener("click",handleTitleClick);
+
+
