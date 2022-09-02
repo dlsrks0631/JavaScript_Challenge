@@ -89,18 +89,25 @@ function handleTitleClick() {
 (css)
 h1 {
   color: cornflowerblue;
-  transition: color .5s ease-in-out;
+  transition: color .5s ease-in-out; --> 5초동안 색상이 바뀜
 }
 .active {
   color: tomato
 }
-(js)
+(js) 
+--> 이전 클래스가 사라지기 때문에 className을 교체하면 안됨
+--> h1의 classList에 clickedClass가 이미 있는지 확인해서
+    만약 있다면 없애주고, 존재하지 않으면 추가함.
+(방법1)
 function handleTitleClick() {
-  if (h1.className === "active") {
-    h1.className = "";
+  const clickedClass = "active"
+  if (h1.classList.contains(clickedClass)) { --> clickedClass가 h1의 classList에 포함되어 있다면,
+    h1.classList.remove(clickedClass);
   } else {
-    h1.className = "active";
+    h1.classList.add(clickedClass);
   }
+(방법2)
+  h1.classList.toggle(clickedClass);
 }
 
 h1.addEventListener("click",handleTitleClick);
