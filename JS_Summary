@@ -112,4 +112,29 @@ function handleTitleClick() {
 
 h1.addEventListener("click",handleTitleClick);
 
+< Form Submission >
+-> form 안에서 엔터를 누르고 input이 더 존재하지 않는다면 자동으로 submit이 됨
+-> form 안에서 loginbtn 은 click에 대한 event를 명시하지 않아도 된다.
+-> event.preventDefault() -> event의 기본행동(function에 대해 브라우저가 기본적으로 수행하는 동작)을 발생되지 않도록 막는다.
 
+< Text 입력 방법 >
+1. ~~.innerText = `Hello ${username}`
+2. ~~.innerText = "Hello " + username
+
+< Saving Username >
+1. localStorage.setItem("저장할값의 이름(key)","저장할값(value)") --> local storage에 정보를 저장
+2. localStorage.getItem("저장한값의 이름") --> 저장한값 불러옴
+3. localStorage.removeItem("저장한값의 이름") --> 저장한값 지움
+
+(ex)
+const savedUsername = localStorage.getItem("username") --> savedUsername = "nico"
+
+if (savedUsername === null) {
+  --> form을 보여줌
+  loginForm.classList.remove("hidden");
+  loginForm.addEventListener("submit",onLoginSubmit);
+} else {
+  --> form을 숨기고 greeting을 보여줌
+  greeting.classList.remove("hidden");
+  greeting.innerText = `Hello ${savedUsername}`;
+}
