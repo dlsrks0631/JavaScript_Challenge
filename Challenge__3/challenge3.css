@@ -1,3 +1,22 @@
 .hidden {
   display: none;
 }
+
+#First_Line {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#Second_Line {
+  font-size: 20px;
+}
+
+#Result_First_Line {
+  font-size: 20px;
+}
+
+#Result_Second_Line {
+  font-size: 20px;
+  font-weight: bold;
+}
