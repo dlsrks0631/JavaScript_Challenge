@@ -138,3 +138,37 @@ if (savedUsername === null) {
   greeting.classList.remove("hidden");
   greeting.innerText = `Hello ${savedUsername}`;
 }
+
+< Clock >
+setInterval(function이름, 5000(5초));
+-> 실행하고자 하는 function, 호출되는 function 간격을 몇 ms로 할 지
+setTimeout(function이름, 얼마나 기다릴지 ms);
+
+1. Date 
+(ex) 
+const date = new Date() -> 오늘 날짜 / 시간
+date.getDate() -> 오늘 날짜 (6일)
+date.getDay() -> 무슨 요일인지 -- 일요일 : 0 출력
+date.getFullYear() -> 2022년
+date.getHours() -> 현재 시간
+date.getMinutes() -> 현재 몇 분인지
+date.getSeconds() -> 현재 몇 초인지
+
+number -> string 변환
+(ex) String(new Date().getHours())
+
+function getClock() {
+  const date = new Date();
+  const hours = String(date.getHours()).padStart(2,"0");
+  const minutes = String(date.getMinutes()).padStart(2,"0");
+  const seconds = String(date.getSeconds()).padStart(2,"0");
+  clock.innerText = `${hours}:${minutes}:${seconds};
+}
+
+getClock() --> 1초 나중에 나오므로 바로 시간이 뜨도록 함
+setInterval(getClock,1000) --> 1초마다 출력
+
+padStart() -> string에 쓸 수 있는 function
+(ex) "1".padStart(2, "0") --> "01"
+--> 1인 문자를 길이가 2가 되도록 padding을 시작부분에 추가
+(ex) "1".padEnd(2,"0") --> "10"
