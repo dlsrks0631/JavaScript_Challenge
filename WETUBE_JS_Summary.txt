@@ -1,4 +1,6 @@
-#### Package.json ####
+###### WETUBE JS SUMMARY ######
+
+1. #### Package.json ####
 == node.js 관련 정보를 담는 방법으로 일반적인 Text이므로 무엇을 넣어도 상관없음
 
 == script 엔트리를 생성하고 그 안에 script를 입력하면 --> npm run (script이름) 을 사용할 수 있음
@@ -7,7 +9,7 @@
     "dev" : "nodemon -- exec babel-node src/server.js" --> npm run dev 사용 가능
 }
 
-#### Dependencies ####
+2. #### Dependencies ####
 == dependencies: 프로젝트가 돌아가기 위해 필요한 package
 == package.json 파일이 있다면 npm i 를 실행시 npm에서 dependencies와 devDependencies를 찾아 있는 모든 걸 설치해줌
 == package.json에 있는 dependencies들에 내용만 추가해주면 npm이 알아서 설치해주므로 node_modules를 공유할 필요없음
@@ -19,14 +21,14 @@
 1. nodemon(파일을 보고 있다가 변화가 있으면 commend를 재시작 시켜줌) 서버를 만드는 데 필수적인 요소는 아니지만 개발환경을 편하게 해줌
 2. nodemon -> babel-node를 실행 -> src 폴더에 가서 server.js 실행
 
-#### Server ####
+3. #### Server ####
 == 항상 켜져있고 인터넷에 연결 돼 있으면서 request를 listening하고 있는 컴퓨터 
 == 브라우저는 서버에게 홈페이지를 요구하고, 브라우저가 요청한 걸 서버는 응답해줘야 함 --> 응답이 없을 시 무한 로딩
 (ex)
 const app = express();
 app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지를 request 후 handler 응답
 
-#### Middleware ####
+4. #### Middleware ####
 == 말 그대로 중간에 있는 software - request와 response의 중간 
 == request 오브젝트와, response 오브젝트 말고도 next 파라미터를 가지고 있음
 == next 파라미터는 다음으로 request 를 처리할 콜백함수를 담고있음
