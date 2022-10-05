@@ -33,3 +33,17 @@ app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지�
 == request 오브젝트와, response 오브젝트 말고도 next 파라미터를 가지고 있음
 == next 파라미터는 다음으로 request 를 처리할 콜백함수를 담고있음
 == 원하는 만큼 사용가능하며 누군가가 응답하기 전까지 request와 관련된 모든 controller는 모두 Middleware이다
+
+5. #### Router ####
+(ex)
+const videoRouter = express.Router();
+const handleWatchVideo = (req,res) => res.send("Watch Video");
+videoRouter.get("/watch",handleWatchVideo);
+
+app.use("/videos", videoRouter); 
+-> 누군가가 "/videos"로 시작하는 url에 접근하면
+-> express는 videoRouter로 들어가고
+-> videoRouter는 가지고 있는 url로 들어감으로써 handleWatchVideo 실행
+
+
+
