@@ -34,7 +34,7 @@ app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지�
 == next 파라미터는 다음으로 request 를 처리할 콜백함수를 담고있음
 == 원하는 만큼 사용가능하며 누군가가 응답하기 전까지 request와 관련된 모든 controller는 모두 Middleware이다
 
-5. #### Router ####
+5. #### Router && Controllers ####
 (ex)
 const videoRouter = express.Router();
 const handleWatchVideo = (req,res) => res.send("Watch Video");
@@ -44,6 +44,11 @@ app.use("/videos", videoRouter);
 -> 누군가가 "/videos"로 시작하는 url에 접근하면
 -> express는 videoRouter로 들어가고
 -> videoRouter는 가지고 있는 url로 들어감으로써 handleWatchVideo 실행
+
+-> Router와 Controller를 같이 쓰는 건 권장하지 않음
+-> 따로 작성한 뒤 export && import 실행
+-> export default는 내보내는 게 1개 밖에 없기에 변수명을 바꿔줘도 되지만
+    export는 내보내는 게 여러가지라 선언된 변수명 그대로 써줘야 함
 
 
 
