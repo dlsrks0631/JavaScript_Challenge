@@ -50,5 +50,12 @@ app.use("/videos", videoRouter);
 -> export default는 내보내는 게 1개 밖에 없기에 변수명을 바꿔줘도 되지만
     export는 내보내는 게 여러가지라 선언된 변수명 그대로 써줘야 함
 
+6. #### URL Parameters ####
+(ex)
+videoRouter.get("/:변수몀/edit", edit);
+-> URL 안에 변수를 넣어줌
+-> req.params.변수명
+
+
 
 
