@@ -56,6 +56,12 @@ videoRouter.get("/:변수몀/edit", edit);
 -> URL 안에 변수를 넣어줌
 -> req.params.변수명
 
+7. #### Rendering ####
+-> pug를 렌더링해주는건 controller!
+-> render는 2개의 argument를 받는다
+-> 하나는 view, 다른 하나는 템플릿에 보낼 변수!
+-> 템플릿에 변수를 생성하는법 #{}
+
 
 
 
