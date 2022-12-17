@@ -1,6 +1,7 @@
 ###### WETUBE JS SUMMARY ######
 
 1. #### Package.json ####
+== npm 활용 -> npm init을 통해 package.json 생성
 == node.js 관련 정보를 담는 방법으로 일반적인 Text이므로 무엇을 넣어도 상관없음
 
 == script 엔트리를 생성하고 그 안에 script를 입력하면 --> npm run (script이름) 을 사용할 수 있음
