@@ -1,6 +1,22 @@
 ###### WETUBE JS SUMMARY ######
 
-1. #### Package.json ####
+
+1. #### Node JS ####
+== 브라우저 바깥에서 쓸 수 있는 자바스크립트
+
+2. #### NPM ####
+== 자바스크립트 언어를 위한 패키지 매니저
+== Node JS와 상호작용을 할 수 있게 해줌
+== 
+
+3. #### Express - NPM ####
+== npm install express
+== npm init -> 새 npm패키지 또는 기존 npm 패키지를 설정 할 수 있음 
+            -> package.json 만드는 걸 도와줌
+
+
+4. #### Package.json ####
+== json -> 그냥 텍스트 파일임. 파일에 정보를 저장하기 위해 만든 방식 중 하나
 == npm 활용 -> npm init을 통해 package.json 생성
 == node.js 관련 정보를 담는 방법으로 일반적인 Text이므로 무엇을 넣어도 상관없음
 
@@ -9,8 +25,9 @@
 "scripts": {
     "dev" : "nodemon -- exec babel-node src/server.js" --> npm run dev 사용 가능
 }
+2.0 7:13
 
-2. #### Dependencies ####
+5. #### Dependencies ####
 == dependencies: 프로젝트가 돌아가기 위해 필요한 package
 == package.json 파일이 있다면 npm i 를 실행시 npm에서 dependencies와 devDependencies를 찾아 있는 모든 걸 설치해줌
 == package.json에 있는 dependencies들에 내용만 추가해주면 npm이 알아서 설치해주므로 node_modules를 공유할 필요없음
