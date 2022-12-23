@@ -27,7 +27,7 @@
 == node.js 관련 정보를 담는 방법으로 일반적인 Text이므로 무엇을 넣어도 상관없음
 
 == script 엔트리를 생성하고 그 안에 script를 입력하면 --> npm run (script이름) 을 사용할 수 있음
-(ex)
+(ex)ppopopp
 "scripts": {
     "win": "node index.js" --> npm run win 실행 시 index.js파일 실행됨
 }
@@ -59,7 +59,13 @@ https://babeljs.io/setup#installation
 @babel/preset-env
 @babel/preset-env는 환경에 필요한 구문 변환을 세부적으로 관리할 필요 없이 최신 JavaScript를 사용할 수 있게 해주는 스마트한 preset입니다
 
-2.4 nodemon
+3. #### Nodemon ####
+== npm i nodemon -- save-dev 6:05
+== node index.js(nodeJS로 실행) -> babel-node index.js() -> nodemon --exec babel-node index.js
+== ex) "scripts": { nodemon --exec babel-node index.js" }
+== 만든 파일이 수정되는 걸 감시해주는 패키지 -> 파일이 수정되면 알아서 재시작해줌 
+                                          -> npm run 을 계속 실행해주지 않아도 됨
+
 
 3. #### Server ####
 == 항상 켜져있고 인터넷에 연결 돼 있으면서 request를 listening하고 있는 컴퓨터 
