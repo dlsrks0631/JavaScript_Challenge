@@ -10,12 +10,12 @@
 == 
 
 3. #### Express - NPM ####
-== npm install(i) express -> node_modules파일 + package-lock.json 파일 생성
-                          -> 기존 package.json파일 dependencies express 생성됨
-                          -> npm i 실행 시 dependencies에 해당되는 모듈들을 다 설치해줌
-                          -> .gitignore -> /node_modules -> 다른사람들에게 node_modules 파일을 보내지 않아도 됨. package.json파일만 있어도 됨
-                          -> dependencies에 express 있을 시 이후 npm i 만 실행해도 됨
-                          -> package-lock.json -> 패키지들을 안전하게 관리함
+== npm i(=install) express -> node_modules파일 + package-lock.json 파일 생성
+                           -> 기존 package.json파일 dependencies express 생성됨
+                           -> npm i 실행 시 dependencies에 해당되는 모듈들을 다 설치해줌
+                           -> .gitignore -> /node_modules -> 다른사람들에게 node_modules 파일을 보내지 않아도 됨. package.json파일만 있어도 됨
+                           -> dependencies에 express 있을 시 이후 npm i 만 실행해도 됨
+                           -> package-lock.json -> 패키지들을 안전하게 관리함
 
 == npm init -> 새 npm패키지 또는 기존 npm 패키지를 설정 할 수 있음 
             -> package.json 만드는 걸 도와줌
@@ -59,14 +59,14 @@ https://babeljs.io/setup#installation
 @babel/preset-env
 @babel/preset-env는 환경에 필요한 구문 변환을 세부적으로 관리할 필요 없이 최신 JavaScript를 사용할 수 있게 해주는 스마트한 preset입니다
 
-3. #### Nodemon ####
+6. #### Nodemon ####
 == npm i nodemon -- save-dev
 == node index.js(nodeJS로 실행) -> babel-node index.js(최신 문법 코드로 실행) -> nodemon --exec babel-node index.js(babel-node를 실행하는 nodemon)
 == ex) "scripts": { nodemon --exec babel-node index.js" }
 == 만든 파일이 수정되는 걸 감시해주는 패키지 -> 파일이 수정되면 알아서 재시작해줌 
                                           -> npm run 을 계속 실행해주지 않아도 됨
 
-4. #### Server ####
+7. #### Server ####
 == 항상 켜져있고 인터넷에 연결 돼 있으면서 request를 listening하고 있는 컴퓨터 
 == 브라우저는 서버에게 홈페이지를 요구하고, 브라우저가 요청한 걸 서버는 응답해줘야 함 --> 응답이 없을 시 무한 로딩
 (ex)
