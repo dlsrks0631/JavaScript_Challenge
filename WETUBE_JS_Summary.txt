@@ -73,6 +73,30 @@ https://babeljs.io/setup#installation
 const app = express();
 app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지를 request 후 handler 응답
 
+8. #### GET Requests ####
+== 브라우저는 대신해서  웹사이트를 request하고, 페이지를 가져다 줌 == 페이지를 가져와 !!
+== (ex) import express from "express";
+        const app = express();
+
+        => app.get("root", callback)
+        app.get("/", () => console.log("Somebody is trying to go home.")) => 누군가가 root page로 get request를 보낸다면 함수를 실행
+
+        const handleHome = () => console.log("Somebody is trying to go home.") => 위와 동일
+        app.get("/", handleHome))
+
+        app.get("/", console.log("Somebody is trying to go home.")) => 무조건 함수로 실행해야 하므로 오류
+== request => 사용자가 원하는 것을 요청하는 것 
+           => but, 사용자가 직접 get request를 하는 것이 아니라 브라우저가 get request를 보내는 것
+           => get request에는 어디로 가려는지 /home, /login과 같은 route가 있음.
+
+9. #### ( Request, Responses ) ####
+== request를 받으면 브라우저가 request를 보내고 root 페이지를 가져달라는 request를 받으면 응답 !!
+== (ex) const handleHome = (req, res) => {
+            return res.end();
+            return res.send("Hello"); -> 메세지 보냄
+        };
+
+
 5. #### Middleware ####
 == 말 그대로 중간에 있는 software - request와 response의 중간 
 == request 오브젝트와, response 오브젝트 말고도 next 파라미터를 가지고 있음
