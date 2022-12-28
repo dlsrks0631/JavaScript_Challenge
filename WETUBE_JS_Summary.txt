@@ -96,6 +96,7 @@ app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지�
             return res.send("Hello"); -> 메세지 보냄
         };
 
+-- 3.4 0:00
 
 5. #### Middleware ####
 == 말 그대로 중간에 있는 software - request와 response의 중간 
