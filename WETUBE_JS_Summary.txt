@@ -110,12 +110,30 @@ app.get("/", handleHome) -> get(route, handler) ----> 서버에게 홈페이지�
  
 4. #### Middleware ####
 == 말 그대로 중간에 있는 software - request와 response의 중간 
-== request 오브젝트와, response 오브젝트 말고도 next 파라미터를 가지고 있음 (req,res,next)
-== next 파라미터는 다음으로 request 를 처리할 콜백함수를 담고있음 / 함수가 next()를 호출 시 Middleware임
+== 모든 함수는 request 오브젝트와, response 오브젝트 말고도 next 파라미터를 가지고 있음 (req,res,next) / 하지만 그 중 함수가 next()를 호출 시 Middleware이 됨
+== next 파라미터는 다음으로 request 를 처리할 콜백함수를 담고있음 
 == 원하는 만큼 사용가능하며 누군가가 응답하기 전까지 request와 관련된 모든 controller는 모두 Middleware이다
 == app.use => 모든 router들에서 사용 => app.get 전에 사용되어야 함
 
-5. #### Router && Controllers ####
+5. #### Morgan ####
+== npm i morgan
+== NodeJS를 위한 HTTP request logger
+== npm i morgan
+https://www.npmjs.com/package/morgan
+
+== Morgan사용법
+https://www.npmjs.com/package/morgan#examples
+
+skip을 사용해서 특정 statusCode만 필터 가능
+```
+// EXAMPLE: only log error responses
+morgan('combined', {
+skip: function (req, res) { return res.statusCode < 400 }
+})
+```
+
+4.0 ~~
+6. #### Router && Controllers ####
 (ex)
 const videoRouter = express.Router();
 const handleWatchVideo = (req,res) => res.send("Watch Video");
