@@ -178,11 +178,30 @@ import global from "./routers/globalRouter";
      import { trending } from "../controllers/videoController";
 
 
-12. #### URL Parameters ####
+8. #### URL Parameters ####
+
+/:id => url에 변수값을 넣어 줄 수 있게 해준다
+id - 변수명
+: - /:id id가 변수라고 인식하게 해줌
 (ex)
 videoRouter.get("/:변수몀/edit", edit);
 -> URL 안에 변수를 넣어줌
 -> req.params.변수명
+
+== Routing
+https://expressjs.com/ko/guide/routing.html
+
+== 정규표현식 테스트 사이트
+https://www.regexpal.com
+
+== \w+: 모든 문자, 숫자 선택
+== \d+: 모든 숫자 선택
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+< PUG == Returning HTML  >
+
 
 13. #### Rendering ####
 -> pug를 렌더링해주는건 controller!
