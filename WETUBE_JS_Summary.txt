@@ -132,8 +132,14 @@ skip: function (req, res) { return res.statusCode < 400 }
 })
 ```
 
-4.0 ~~
 6. #### Router && Controllers ####
+
+모든 Express 애플리케이션에는 앱 라우터가 내장되어 있음.
+라우터는 미들웨어 자체처럼 작동하므로 app.use()에 대한 인수로 또는 다른 라우터의 use() 메서드에 대한 인수로 사용 가능
+최상위 익스프레스 객체에는 새로운 라우터 객체를 생성하는 Router() 메서드가 있다.
+
+https://expressjs.com/ko/4x/api.html#router
+
 (ex)
 const videoRouter = express.Router();
 const handleWatchVideo = (req,res) => res.send("Watch Video");
@@ -148,6 +154,29 @@ app.use("/videos", videoRouter);
 -> 따로 작성한 뒤 export && import 실행
 -> export default는 내보내는 게 1개 밖에 없기에 변수명을 바꿔줘도 되지만
     export는 내보내는 게 여러가지라 선언된 변수명 그대로 써줘야 함
+
+7. #### Export && Import ####
+== 프로젝트에 있는 모든 파일은 분리된 모습이므로
+== 무언가를 바깥에 공유하기 위해서는 export를 먼저 해줘야 함
+
+====> Default Export 
+== default export일 경우 이름을 동일하게 설정하지 않아도 됨 하지만 파일 당 하나만 설정할 수 있음
+(ex)```
+export default globalRouter;
+
+=> 둘 다 가능
+import globalRouter from "./routers/globalRouter";
+import global from "./routers/globalRouter";
+```
+
+====> Export
+== 하나의 파일에 export 여러개일 경우에는 const 앞에 export 사용 하지만 이름을 동일하게 설정해야 함
+     export const trending = (req, res) => res.send("Home Page Videos");
+     export const watch = (req, res) => res.send("Watch");
+     export const edit = (req, res) => res.send("Edit");
+
+     import { trending } from "../controllers/videoController";
+
 
 12. #### URL Parameters ####
 (ex)
