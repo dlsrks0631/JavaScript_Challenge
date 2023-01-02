@@ -203,7 +203,47 @@ https://www.regexpal.com
 < PUG == Returning HTML  >
 
 
-13. #### Rendering ####
+1. #### PUG ####
+
+== PUG 사용 이유
+    1. 깔끔한 HTML 사용 가능
+    2. HTML에 자바스크립트를 포함시킬 수 있음
+    3. 반복하지 않아도 한 파일로 모든 템플릿을 업데이트 할 수 있음
+
+== PUG 사용법
+    1. PUG 설치 => npm i pug
+    2. 뷰 엔진을 pug로 설정 => app.set("view enging", "pug");
+    3. pug 파일 생성
+    => pug파일 생성시 유의점 => 파일명은 모두 소문자로, 띄어쓰기 X
+
+== 참조 https://www.npmjs.com/package/pug
+
+== Express와 함께 템플리트 엔진을 사용
+== Express가 템플리트를 렌더링하려면 다음과 같은 애플리케이션 설정이 필요
+    views, 템플리트가 있는 디렉토리 (ex) app.set('views', './views')
+    view engine, 사용할 템플리트 엔진 (ex) app.set('view engine', 'pug')
+
+== 참조 https://expressjs.com/ko/guide/using-template-engines.html
+
+Application Settings (Express어플리케이션 설정)
+https://expressjs.com/ko/4x/api.html#app.us
+
+2. #### PUG - PARTIALS ####
+
+== 중복되는 코드를 효율적으로 관리할 수 있게 만듦
+== 별도의 유니크한 파일 생성 후 include 파일 위치 (ex) include partials/footer.pug
+
+3. #### PUG - Block && Extends ####
+
+== https://pugjs.org/language/inheritance.html
+== extends 확장 , inheritance 상속
+(ex) base.pug를 만들어서
+extend base.pug 로 해당 템플릿에서 원하는 부분만 바꿀 수 있게 함
+base.pug에 block 이라는 공간을 집어넣어서
+block 을 base.pug가 아닌 다른 템플릿에서 바꿔줌
+
+
+2. #### Rendering ####
 -> pug를 렌더링해주는건 controller!
 -> render는 2개의 argument를 받는다
 -> 하나는 view, 다른 하나는 템플릿에 보낼 변수!
