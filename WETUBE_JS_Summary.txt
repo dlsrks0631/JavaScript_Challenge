@@ -184,7 +184,7 @@ import global from "./routers/globalRouter";
 id - 변수명
 : - /:id id가 변수라고 인식하게 해줌
 (ex)
-videoRouter.get("/:변수몀/edit", edit);
+videoRouter.get("/:변수명/edit", edit);
 -> URL 안에 변수를 넣어줌
 -> req.params.변수명
 
@@ -308,6 +308,29 @@ include mixins/video
 
 each info in videos
 +video(info)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+< Database >
+
+
+1. #### POST ####
+array database와 HTML 상호작용 과정
+1. 각 비디오에 id 부여
+2. id를 기반으로 비디오마다 anchor 생성
+3. 임의의 id를 가진 url에 접근하려고 할 때, 해당 id를 가져와서 변수에 저장
+4. 저장된 id를 기반으로 해당 id 에 해당하는 object를 변수에 저장
+5. 저장된 object를 기반으로 HTML 렌더링하여 contents 출력
+
+2. #### Absolute && Relative URL ####
+== 제일앞에 /가있으면 절대경로
+(ex)
+a(href="/video/edit")--->localhost:4000/video/edit
+a(href="video/edit")--->localhost:4000/videos/video/edit
+a(href=`${video.id}/edit`)--->localhost:4000/videos/1/edit
+
+
 
 
 
