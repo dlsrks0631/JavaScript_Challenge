@@ -312,7 +312,7 @@ each info in videos
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-< Database >
+< Fake Database >
 
 
 1. #### POST ####
@@ -352,6 +352,43 @@ https://expressjs.com/ko/api.html#req.body
 express.urlencoded([options])
 Express에 내장된 미들웨어 기능입니다. urlencoded 페이로드로 들어오는 요청을 구문 분석하고 바디 파서를 기반으로 합니다.
 https://expressjs.com/ko/api.html#express.urlencoded
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+< REAL DATABASE - Mongo DB >
+
+#### 1. CRUD ####
+
+#### 2. Schema && Model ####
+
+== Mongoose의 모든 것은 스키마로 부터 시작된다
+== 각 스키마는 MongoDB 컬렉션에 매핑되고 해당 컬렉션 내 문서의 모양을 정의한다
+== Models => 스키마 정의에서 컴파일된 생성자로 모델은 기본 MongoDB 데이터 베이스에서 문서를 만들고 읽는다.
+== DB를 mongoose와 연결시켜서 Video model을 인식시킨다
+
+(ex)
+```
+const videoSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    createdAt: Date,
+    hashtags: [{type: String}],
+    meta: {
+        views: Number,
+        rating: Number,
+    },
+});
+
+const Video = mongoose.model("Video", videoSchema(데이터의 형태));
+```
+== 참조
+== https://mongoosejs.com/docs/guide.html#schemas
+== https://mongoosejs.com/docs/guide.html#models
+== https://mongoosejs.com/docs/models.html
+
+
+#### 3. Query ####
 
 
 
