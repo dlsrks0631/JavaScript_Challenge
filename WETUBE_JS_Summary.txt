@@ -431,7 +431,12 @@ export const home = async (req, res) => {
 == render한 것은 다시 render할 수 없음
 ==> redirect(), sendStatus(), end() 등등 포함 (express에서 오류 발생)
 
+#### 6. Mongoose - Schema ####
 
+== Mongoose Schema는 Mongoose Model을 구성하기 위한 객체로 생각할 수 있음
+== Mongoose의 모든 것은 Schema로 시작하며, 각 스키마는 MongoDB 컬렉션에 매핑되고 해당 컬렉션 내 문서의 모양을 정의한다
+== https://mongoosejs.com/docs/schematypes.html
+== https://mongoosejs.com/docs/guide.html
 
 
 
