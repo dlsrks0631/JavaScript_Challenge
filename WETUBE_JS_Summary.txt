@@ -573,5 +573,35 @@ new RegExp('ab+c', 'i') // 생성자 함수
 
 < User Authentication >
 
+#### 1. Hashing ####
 
+== npm i bcrypt
+
+(ex)
+userSchema.pre("save", async function () {
+  console.log("Password: ", this.password);
+  this.password = await bcrypt.hash(this.password, 5);
+  console.log("Hashing Password: ", this.password);
+});
+
+==> userSchema.pre("save", async function() {} => 말그대로 pre save 저장하기 전에 잠깐 가로채서 작업할 수 있게 만듦
+==> 여기서 this는 create되는 User을 가리킴
+
+해시함수. 5분 설명 영상
+https://www.youtube.com/watch?v=67UwxR3ts2E
+
+remove() 명령어 실행이 안될 때
+db.users.remove()는 deprecated되었기 때문에
+db.users.deleteMany({})로 지우시면 됩니다.
+
+해시함수 테스트
+https://emn178.github.io/online-tools/sha256.html
+
+bcrypt 설치
+암호를 해시하는 데 도움이 되는 라이브러리입니다.
+npm i bcrypt
+https://www.npmjs.com/package/bcrypt
+
+Schema.prototype.pre()
+https://mongoosejs.com/docs/api.html#schema_Schema-pre
 
