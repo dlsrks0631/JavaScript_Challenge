@@ -444,7 +444,7 @@ http://regexpal.com
 
 == MongoDB는 ObjectID를 24바이트 16진 문자열 표현으로 반환
 == https://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
-== https://docs.mongodb.com/manual/reference/method/ObjectId/
+== https://docs.mongodb.com/manual/reference/method/ObjectId/ 
 
 == 십육진법 (Hexadecimal)
 == 십육진법은 십육을 밑으로 하는 기수법이다. 보통 0부터 9까지의 수와 A에서 F까지의 로마 문자를 사용하고, 이때 대소문자는 구별하지 않는다.
@@ -470,6 +470,68 @@ https://mongoosejs.com/docs/api.html#model_Model.findById
 == The endsWith() 메서드를 사용하여 어떤 문자열에서 특정 문자열로 끝나는지를 확인할 수 있으며, 그 결과를 true 혹은 false로 반환
 == https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
 
+== Model.findByIdAndUpdate() 한번에 찾고 업데이트까지
+== new Model & Model.save() -> Model.create({})이랑 비슷!
+
+== Model.exists로 video object전체가 아닌 조건 유무를 true,false로 판단해서 검색함
+== Model.exists({조건문 ex) _id : id , title : title})
+
+== findByIdAndDelete()
+== document의 _id 필드로 MongoDB findOneAndDelete() 명령 실행
+== findByIdAndDelete(id)는 findOneAndDelete({ _id: id })의 줄임말
+== https://mongoosejs.com/docs/api.html#model_Model.findByIdAndDelete
+
+#### 9. Use Mongo ####
+
+1. Mongo 사용하기
+> mongo // mongosh
+
+2. 내가 가진 db 보기
+> show dbs
+
+3. 현재 사용 중인 db 확인
+> db
+
+4. 사용할 db 선택하기
+> use dbName => use wetubedb
+
+5. db 컬렉션 보기
+> show collections
+
+6. db 컬렉션 안에 documents 보기
+> db.collectionName.find() => db.videos.find()
+
+7. db 컬렉션 안에 documents 내용 모두 제거하기 
+> db.collectionName.remove({}) => db.videos.remove({})
+> db.videos.remove({})가 deprecated됐다고 뜬다면 db.videos.deleteMany({})로 전체 비디오 삭제
+
+
+#### 10. Middleware ####
+
+== Middleware(pre또는 post훅이라고도 불림)는 비동기 함수를 실행하는 동안 제어가 전달되는 함수
+== Mongoose는 document middleware, model middleware, aggregate middleware, query middleware 4가지 미들웨어가 존재
+== https://mongoosejs.com/docs/middleware.html#middleware
+
+== model middleware가 지원하는 기능
+== document middleware함수에서 this는 현재 document를 참조합니다. https://mongoosejs.com/docs/middleware.html#types-of-middleware
+== https://mongoosejs.com/docs/middleware.html#pre
+
+
+#### 11. Statics ####
+
+모델에 static 함수를 추가할 수도 있습니다.
+스키마에서 컴파일된 모델에 정적 "class" 메서드를 추가합니다.
+
+Static 사용하는 두 가지 방법
+```
+// Assign a function to the "statics" object of our animalSchema
+animalSchema.statics.findByName = function(name) {
+return this.find({ name: new RegExp(name, 'i') });
+};
+// Or, equivalently, you can call `animalSchema.static()`.
+animalSchema.static('findByBreed', function(breed) { return this.find({ breed }); });
+```
+https://mongoosejs.com/docs/guide.html#statics
 
 
 
