@@ -634,3 +634,29 @@ const match = await bcrypt.compare(password, user.passwordHash);
 2. 서버가 브라우져에게 Cookie 준다.
 3. 브라우져가 서버에 다시 접근할 때 2.에서 받은 Cookie를 함께 건냄.
 4. 서버는 Cookie를 통해 브라우져를 구분 할 수 있다.
+
+express-session
+Express용 세션 미들웨어
+세션 데이터는 쿠키 자체에 저장되지 않고 세션 ID에만 저장됩니다. 세션 데이터는 서버 측에 저장됩니다.
+npm i express-session
+https://www.npmjs.com/package/express-session
+
+Session 사용 예시
+https://github.com/expressjs/session#example
+
+req.session.id 또는 req.sessionID
+브라우저가 request할 때 같이 보내는 session id
+
+resave (변경 사항이 없어도 저장)
+request하는 동안 세션이 수정되지 않은 경우에도 세션이 세션 저장소에 다시 저장되도록 합니다.
+https://github.com/expressjs/session#resave
+
+saveUninitialized (세션 초기화 전에도 저장)
+"초기화되지 않은" 세션을 저장소에 강제로 저장합니다.
+https://github.com/expressjs/session#saveuninitialized
+
+세션은 서버측에서 제공해주는 데이터, 쿠키는 클라이언트측에서 저장하고 사용하는 데이터
+req.sessiontStore() 사용했을때 한번은 undefined가 나온 이유가 세션은 서버에서 만들어줘야 하는데 클라이언트가 첫 요청때 세션을 가지고있을리 없으니 undefined이 나온거고 그 이후 요청부턴 첫번째 요청때 세션을 만들어서 넘겨줬으니 클라이언트가 해당 값을 쿠키에 저장하고 매 요청때마다 서버에게 전달
+세션은 서버가 만들어서 제공해주다보니 서버가 재부팅되면 초기화 된다. (그래서 DB에 저장해서 관리를 한다는 소리. 실 운영에선 서버가 꺼지는 일은 없으니깐.)
+세션의 값은 서버가 만들어주는 고유값이다보니 해당 값을 기준으로 클라이언트에서 요청한 건에 대해 유저를 특정지을 수 있다
+
