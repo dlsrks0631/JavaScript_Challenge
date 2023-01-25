@@ -1,4 +1,4 @@
-a###### WETUBE JS SUMMARY ######
+###### WETUBE JS SUMMARY ######
 
 < Settings >
 
@@ -627,6 +627,60 @@ const match = await bcrypt.compare(password, user.passwordHash);
 ```
 == https://www.npmjs.com/package/bcrypt
 
+#### 4. Session ####
+
+== Session 
+=> 백엔드와 브라우저 간에 어떤 활동을 했는지 기억하는 것 (브라우저와 백엔드 사이에 기억-역사 같은 느낌?) 
+=> 이러한 점들이 작용하기 위해선 백엔드와 브라우저가 서로에 대한 정보를 지니고 있어야함
+=> 유저가 로그인할 때 유저에게 어떠한 텍스트를 줌
+=> 브라우저 접속시 백엔드가 요청을 보내는 사용자에게 id를 보내고 있음 => 세션
+=> 브라우저가 요청을 보낼 때마다 같이 id를 보내줘서 브라우저와 일치하는 세션이 뭔지 알 수 있고
+=> 세션 id를 가지고 있으면 세션 object에 정보를 추가할 수 있음
+
+=> 브라우저에서 서버에 로그인 요청을 해서 로그인이 되면 서버는 세션 id를 응답해주고
+=> 브라우저는 쿠키스토리지에 세션id를 보관하고 있다가 다시 서버에 방문할 시에는 세션 id만 보여주면 자동으로 로그인되게 해줘서 계속 로그인할 수고를 덜어줌
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### 4. Session ####
@@ -660,3 +714,114 @@ req.sessiontStore() 사용했을때 한번은 undefined가 나온 이유가 세�
 세션은 서버가 만들어서 제공해주다보니 서버가 재부팅되면 초기화 된다. (그래서 DB에 저장해서 관리를 한다는 소리. 실 운영에선 서버가 꺼지는 일은 없으니깐.)
 세션의 값은 서버가 만들어주는 고유값이다보니 해당 값을 기준으로 클라이언트에서 요청한 건에 대해 유저를 특정지을 수 있다
 
+res.locals
+
+request 범위가 지정된 response 로컬 변수를 포함하는 객체이므로 request, response 주기동안 렌더링된 view에서만 사용할 수 있습니다.
+(Pug나 EJS같은 템플릿 엔진에서 사용 가능하다는 의미)
+이 속성은 request path, 인증된 사용자, 사용자 설정 등과 같은 request level의 정보를 노출하는 데 유용합니다.
+```
+// 사용 예시
+app.use(function (req, res, next) {
+res.locals.user = req.user
+res.locals.authenticated = !req.user.anonymous
+next()
+})
+```
+https://expressjs.com/ko/api.html#res.locals
+
+
+
+#### Session - Recap ####
+==  Cookie: 백엔드가 브라우저에 주는 정보이며 정해진 규칙이 있으므로 매번 backend에 request를 할 때 브라우저는 그 request에 쿠키를 덧붙임
+== 단지 정보를 주고 받는 방법 
+==1. backend browser가 소통하는 방식
+backend와 browser는 session ID를 저장하는데
+browser는 cookie라는 것에 저장을 하고 다닌다 그래서 browser가 backend에 요청할때는 cookie를 보내고 backend에서 session ID의 유무를 확인한후 응답을 해주는 방식
+
+2. 로그인 하는 방법
+req.session을 통해 session(object로 이루어져있음)에 접근이 가능하다
+loggedIn = true , user = user(앞서 변수로 선언한) 를 넣어줌으로 res.local으로 접근해서 가져올 수가 있다!
+
+
+Express Session
+== 쿠키에는 세션 데이터가 아닌 세션 ID에만 저장됨
+== 세션 데이터는 서버 측에 저장
+== 하지만 기본 서버 측 세션 저장소인 MemoryStore는 production 환경용으로 설계되지 않았습니다.
+== https://www.npmjs.com/package/express-session
+
+Compatible Session Stores (호환가능한 세션 스토어)
+https://www.npmjs.com/package/express-session#compatible-session-stores
+
+connect-mongo
+Typescript로 작성된 Connect 및 Express용 MongoDB 세션 저장소.
+npm i connect-mongo
+https://www.npmjs.com/package/connect-mongo
+
+
+#### Uninitialized Sessions ####
+* resave : 모든 request마다 세션의 변경사항이 있든 없든 세션을 다시 저장한다.
+- true:
++ 스토어에서 세션 만료일자를 업데이트 해주는 기능이 따로 없으면 true로 설정하여 매 request마다 세션을 업데이트 해주게 한다.
+- false:
++ 변경사항이 없음에도 세션을 저장하면 비효율적이므로 동작 효율을 높이기 위해 사용한다.
++ 각각 다른 변경사항을 요구하는 두 가지 request를 동시에 처리할때 세션을 저장하는 과정에서 충돌이 발생할 수 있는데 이를 방지하기위해 사용한다.
+
+
+* saveUninitialized : uninitialized 상태인 세션을 저장한다. 여기서 uninitialized 상태인 세션이란 request 때 생성된 이후로 아무런 작업이 가해지지않는 초기상태의 세션을 말한다.
+- true:
++ 클라이언트들이 서버에 방문한 총 횟수를 알고자 할때 사용한다.
+- false:
++ uninitialized 상태인 세션을 강제로 저장하면 내용도 없는 빈 세션이 스토리지에 계속 쌓일수 있다. 이를 방지, 저장공간을 아끼기 위해 사용한다.
+
+
+
+#### ENV ####
+== .env 파일은 관습적으로 모두 대문자 사용
+== 사용 방법
+1. .env 파일 생성
+2. .env 파일을 깃허브에 올라가는 걸 방지하기 위해 .gitignore 파일에 .env 파일 추가 
+3. 비밀로 해야하는 string을 process.env.(환경변수)로 바꾸기 
+
+
+#### Github Login ####
+Authorizing OAuth Apps
+다른 사용자가 OAuth 앱을 승인하도록 할 수 있습니다.
+GitHub의 OAuth 구현은 웹 브라우저에 대한 액세스 권한이 없는 앱에 대한 표준 인증 코드 부여 유형 및 OAuth 2.0 장치 인증 부여를 지원합니다.
+
+Web application flow
+웹 애플리케이션 흐름: 브라우저에서 실행되는 표준 OAuth 앱에 대해 사용자에게 권한을 부여하는 데 사용됩니다.
+앱 사용자에게 권한을 부여하는 웹 애플리케이션 흐름은 다음과 같습니다.
+1. 로그인하려는 사이트에서 유저의 GitHub identity를 request하기 위해 유저를 GitHub 페이지로 리다이렉트시킵니다.
+2. 유저는 리다이렉트된 GitHub에서 승인을 하고, GitHub에 의해 다시 로그인하려는 사이트로 리다이렉트됩니다.
+3. 로그인 하려는 사이트는 유저의 액세스 토큰을 통해 API에 접근합니다.
+https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+
+깃허브 OAuth Apps Setting
+GitHub API를 사용하기 위해 등록한 애플리케이션입니다.
+https://github.com/settings/developers
+
+Scopes for OAuth Apps (OAuth 앱의 범위)
+https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+
+Creating an OAuth App (OAuth앱 만들기)
+https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app
+
+Scopes for OAuth Apps
+OAuth 앱은 초기 리디렉션에서 범위를 요청할 수 있습니다. %20을 사용하여 공백으로 구분하여 여러 범위를 지정할 수 있습니다.
+// 사용 예시
+```
+https://github.com/login/oauth/authorize?client_id=...&scope=user%20repo_deployment
+```
+https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+
+URLSearchParams
+URLSearchParams 인터페이스는 URL의 쿼리 문자열에 대해 작업할 수 있는 유틸리티 메서드를 정의합니다.
+https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams
+
+URLSearchParams.toString()
+toString() 은 URLSearchParams 인터페이스의 메소드로서, URL에서 사용할 수 있는 쿼리 문자열을 리턴합니다.
+https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams/toString
+
+
+
+https://github.com/login/oauth/access_token
