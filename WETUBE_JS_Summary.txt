@@ -642,106 +642,84 @@ const match = await bcrypt.compare(password, user.passwordHash);
 => 브라우저가 요청을 보낼 때마다 같이 id를 보내줘서 브라우저와 일치하는 세션이 뭔지 알 수 있고
 => 세션 id를 가지고 있으면 세션 object에 정보를 추가할 수 있음
 
+
+#### 5. 백엔드와 브라우저 소통방식 ####
+
+== 백엔드와 브라우저는 동일하게 세션 ID를 저장하며 브라우저는 쿠키라는 저장소에 세션 아이디를 저장하고 다닌다
+== 브라우저가 백엔드에게 요청할 때는 쿠키를 보내고 백엔드에서 세션 ID의 유무를 확인한 후 응답해준다
+
+=> 결론은 세션 id가 쿠키 안에 저장되고, 백엔드에도 저장됨
+=> 백엔드는 생성된 모든 세션 id를 관리하는 곳 == 사용자가 4명이면 세션 저장소에는 4개의 세션이 있는 것
 => 브라우저에서 서버에 로그인 요청을 해서 로그인이 되면 서버는 세션 id를 응답해주고
 => 브라우저는 쿠키스토리지에 세션id를 보관하고 있다가 다시 서버에 방문할 시에는 세션 id만 보여주면 자동으로 로그인되게 해줘서 계속 로그인할 수고를 덜어줌
+=> locals object는 이미 모든 템플릿에 import된 개체
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### 4. Session ####
-1. 브라우져 서버에 접근
-2. 서버가 브라우져에게 Cookie 준다.
-3. 브라우져가 서버에 다시 접근할 때 2.에서 받은 Cookie를 함께 건냄.
-4. 서버는 Cookie를 통해 브라우져를 구분 할 수 있다.
-
-
-
-Session 사용 예시
-https://github.com/expressjs/session#example
-
-req.session.id 또는 req.sessionID
-브라우저가 request할 때 같이 보내는 session id
-
-resave (변경 사항이 없어도 저장)
-request하는 동안 세션이 수정되지 않은 경우에도 세션이 세션 저장소에 다시 저장되도록 합니다.
-https://github.com/expressjs/session#resave
-
-saveUninitialized (세션 초기화 전에도 저장)
-"초기화되지 않은" 세션을 저장소에 강제로 저장합니다.
-https://github.com/expressjs/session#saveuninitialized
-
-세션은 서버측에서 제공해주는 데이터, 쿠키는 클라이언트측에서 저장하고 사용하는 데이터
-req.sessiontStore() 사용했을때 한번은 undefined가 나온 이유가 세션은 서버에서 만들어줘야 하는데 클라이언트가 첫 요청때 세션을 가지고있을리 없으니 undefined이 나온거고 그 이후 요청부턴 첫번째 요청때 세션을 만들어서 넘겨줬으니 클라이언트가 해당 값을 쿠키에 저장하고 매 요청때마다 서버에게 전달
-세션은 서버가 만들어서 제공해주다보니 서버가 재부팅되면 초기화 된다. (그래서 DB에 저장해서 관리를 한다는 소리. 실 운영에선 서버가 꺼지는 일은 없으니깐.)
-세션의 값은 서버가 만들어주는 고유값이다보니 해당 값을 기준으로 클라이언트에서 요청한 건에 대해 유저를 특정지을 수 있다
-
-res.locals
-
-request 범위가 지정된 response 로컬 변수를 포함하는 객체이므로 request, response 주기동안 렌더링된 view에서만 사용할 수 있습니다.
-(Pug나 EJS같은 템플릿 엔진에서 사용 가능하다는 의미)
-이 속성은 request path, 인증된 사용자, 사용자 설정 등과 같은 request level의 정보를 노출하는 데 유용합니다.
+(ex)
 ```
-// 사용 예시
-app.use(function (req, res, next) {
-res.locals.user = req.user
-res.locals.authenticated = !req.user.anonymous
-next()
-})
+app.use(
+    session({
+        secret: "Hello",
+        resave: false,
+        saveUninitialized: falase,
+        cookie: {
+            maxAge: 20000
+        },
+    })
+);
 ```
-https://expressjs.com/ko/api.html#res.locals
+
+> 로그인 하는 방법
+req.session을 통해 session(object로 이루어져있음)에 접근 가능
+loggedIn = true , user = user(앞서 변수로 선언한) 를 넣어줌으로 res.local으로 접근해서 가져올 수가 있음
 
 
 
-#### Session - Recap ####
-==  Cookie: 백엔드가 브라우저에 주는 정보이며 정해진 규칙이 있으므로 매번 backend에 request를 할 때 브라우저는 그 request에 쿠키를 덧붙임
-== 단지 정보를 주고 받는 방법 
-==1. backend browser가 소통하는 방식
-backend와 browser는 session ID를 저장하는데
-browser는 cookie라는 것에 저장을 하고 다닌다 그래서 browser가 backend에 요청할때는 cookie를 보내고 backend에서 session ID의 유무를 확인한후 응답을 해주는 방식
 
-2. 로그인 하는 방법
-req.session을 통해 session(object로 이루어져있음)에 접근이 가능하다
-loggedIn = true , user = user(앞서 변수로 선언한) 를 넣어줌으로 res.local으로 접근해서 가져올 수가 있다!
+#### 6. MongoStore ####
+
+== connect-mongo > https://www.npmjs.com/package/connect-mongo
+== express-session > https://www.npmjs.com/package/express-session
+== 쿠키에는 세션 데이터가 아닌 세션 ID에만 저장된다. 세션 데이터는 서버에 저장되지만 기본 서버 측 세션 저장소인 MemoryStore는 production 환경용으로 설계되지 않았음
+
+
+#### 7. Resave && Uninitialized Sessions ####
+
+* resave : 모든 request마다 세션의 변경사항이 있든 없든 세션을 다시 저장
+- true:
++ 스토어에서 세션 만료일자를 업데이트 해주는 기능이 따로 없으면 true로 설정하여 매 request마다 세션을 업데이트 해주게 함
+- false:
++ 변경사항이 없음에도 세션을 저장하면 비효율적이므로 동작 효율을 높이기 위해 사용
++ 각각 다른 변경사항을 요구하는 두 가지 request를 동시에 처리할때 세션을 저장하는 과정에서 충돌이 발생할 수 있는데 이를 방지하기위해 사용
+
+
+* saveUninitialized : uninitialized 상태인 세션을 저장한다. 여기서 uninitialized 상태인 세션이란 request 때 생성된 이후로 아무런 작업이 가해지지않는 초기상태의 세션
+- true:
++ 클라이언트들이 서버에 방문한 총 횟수를 알고자 할때 사용
+- false:
++ uninitialized 상태인 세션을 강제로 저장하면 내용도 없는 빈 세션이 스토리지에 계속 쌓일수 있다. 이를 방지, 저장공간을 아끼기 위해 사용
+
+
+#### 8. Expiration and Secrets ####
+
+== Cookie
+== > Secret > 세션 ID 쿠키에 서명하는 데 사용되는 비밀 > 백엔드가 쿠키를 줬다는 걸 보여주기 위함
+== > Domain > 쿠키를 만든 백엔드가 누구인지 알려줌
+== > Expires > HTTP 타임스템프로 기록된 쿠키의 최대 생존 시간(수명)
+== > Max-age > 말그대로 쿠키가 만료될 때 까지의 시간 (밀리세컨드)
+
+
+#### 9. Dotenv ####
+
+== npm i dotenv > 
+== require("doetenv").config()
+process.env.(환경변수) 읽어보자!
+1. npm i dotenv
+2. 가능한 한 가장 먼저 사용하기 require("dotenv").config()
+2-1)사용할 모든 파일에 require("dotenv").config() 붙이기
+2-2)require("dotenv").config() -> import "dotenv/config" 변환 후 init.js에 넣어주기
+(why init.js? -> dev를 실행하면 init.js가 제일 먼저 실행되기 때문)
+
+
 
 
 Express Session
