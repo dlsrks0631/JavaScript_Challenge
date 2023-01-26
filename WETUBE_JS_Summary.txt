@@ -629,6 +629,11 @@ const match = await bcrypt.compare(password, user.passwordHash);
 
 #### 4. Session ####
 
+== express-session(Express용 세션 미들웨어)
+== 세션 데이터는 쿠키 자체에 저장되지 않고 세션 ID에만 저장되며 세션 데이터는 서버 측에 저장됨
+== npm i express-session
+== https://www.npmjs.com/package/express-session
+
 == Session 
 => 백엔드와 브라우저 간에 어떤 활동을 했는지 기억하는 것 (브라우저와 백엔드 사이에 기억-역사 같은 느낌?) 
 => 이러한 점들이 작용하기 위해선 백엔드와 브라우저가 서로에 대한 정보를 지니고 있어야함
@@ -689,11 +694,7 @@ const match = await bcrypt.compare(password, user.passwordHash);
 3. 브라우져가 서버에 다시 접근할 때 2.에서 받은 Cookie를 함께 건냄.
 4. 서버는 Cookie를 통해 브라우져를 구분 할 수 있다.
 
-express-session
-Express용 세션 미들웨어
-세션 데이터는 쿠키 자체에 저장되지 않고 세션 ID에만 저장됩니다. 세션 데이터는 서버 측에 저장됩니다.
-npm i express-session
-https://www.npmjs.com/package/express-session
+
 
 Session 사용 예시
 https://github.com/expressjs/session#example
