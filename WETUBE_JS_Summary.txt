@@ -1156,3 +1156,51 @@ https://meyerweb.com/eric/tools/css/reset
 
 FontAwesome CDN
 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+< Video Player >
+
+#### 1. Webpack ####
+
+웹팩 개별 엔트리 설정 방법
+
+2개의 개별 엔트리 포인트를 원한다고 webpack에게 알려줍니다.
+```
+// 사용 예시
+module.exports = {
+entry: {
+main: './src/app.js',
+vendor: './src/vendor.js',
+},
+output: {
+filename: '[name].bundle.js',
+},
+};
+```
+https://webpack.kr/concepts/entry-points/#separate-app-and-vendor-entries
+
+
+#### 2. HTMLMediaElement #### 
+
+== 참조 https://developer.mozilla.org/ko/docs/Web/API/HTMLMediaElement
+HTMLMediaElement는 오디오와 비디오에 통용되는 미디어 관련 확장성을 제공하기 위해 HTMLElement에 메소드와 프로퍼티를 추가한 인터페이스입니다. HTMLVideoElement 와 HTMLAudioElement (en-US) 는 이 인터페이스를 상속합니다.
+
+
+HTMLVideoElement
+HTMLVideoElement 인터페이스는 Video object를 조작하는데 필요한 프로퍼티와 메소드를 제공합니다. HTMLMediaElement와 HTMLElement를 상속합니다.
+https://developer.mozilla.org/ko/docs/Web/API/HTMLVideoElement
+
+#### 3. EventListner ####
+
+input type="range"에 사용 가능한 이벤트 (change, input)
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+
+이벤트: change
+change 이벤트는 요소 변경이 끝나면 발생합니다.
+텍스트 입력 요소인 경우에는 요소 변경이 끝날 때가 아니라 포커스를 잃을 때 이벤트가 발생합니다.
+
+이벤트: input
+input 이벤트는 사용자가 값을 수정할 때마다 발생합니다.
+키보드 이벤트와 달리 input 이벤트는 어떤 방법으로든 값을 변경할 때 발생합니다.
